@@ -47,6 +47,8 @@ int input_point(std::string targetOrCurrent, int upperLimit = pointLimit)
     return point;
 }
 
+// ライブ回数計算関数
+// 目標ポイント数を取ることが不可能な場合、空のvectorを返す
 std::vector<int> calculate(int target, int current)
 {
     int remain = target - current; // 残りポイント
@@ -70,6 +72,11 @@ std::vector<int> calculate(int target, int current)
                 lastLiveIndex[i + l.point] = j;
             }
         }
+    }
+
+    // 目標ポイントを取ることが不可能な場合
+    if (minLiveCount[remain] >= inf) {
+        return {};
     }
 
     std::vector<int> liveCount((int)allLives.size(), 0); // 各ライブを行う回数
@@ -100,9 +107,13 @@ int main()
     std::vector<int> liveCount = calculate(target, current);
 
     // 出力
-    std::cout << " live count is below." << std::endl;
-    for (int i = 0; i < (int)allLives.size(); ++i) {
-        std::cout << " " + allLives[i].name + " : " + std::to_string(liveCount[i]) << std::endl;
+    if (!liveCount.empty()) {
+        std::cout << " live count is below." << std::endl;
+        for (int i = 0; i < (int)allLives.size(); ++i) {
+            std::cout << " " + allLives[i].name + " : " + std::to_string(liveCount[i]) << std::endl;
+        }
+    } else {
+        std::cout << " you cannot get just " + std::to_string(target) + " points." << std::endl;
     }
 
     return 0;
