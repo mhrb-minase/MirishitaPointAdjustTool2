@@ -47,16 +47,9 @@ int input_point(std::string targetOrCurrent, int upperLimit = pointLimit)
     return point;
 }
 
-int main()
+std::vector<int> calculate(int target, int current)
 {
-    int target = 0; // 目標ポイント
-    int current = 0; // 現在のポイント
-    int remain = 0; // 残りポイント
-
-    // 目標と現在のポイントを入力させ、残りを計算する
-    target = input_point("target");
-    current = input_point("current", target);
-    remain = target - current;
+    int remain = target - current; // 残りポイント
 
     std::vector<int> minLiveCount(remain + 1, inf); // minLiveCount[i] := iポイント取るために必要な最小ライブ回数
     minLiveCount[0] = 0;
@@ -91,6 +84,20 @@ int main()
         ++liveCount[lastLive];
         point -= allLives[lastLive].point;
     }
+
+    return liveCount;
+}
+
+int main()
+{
+    int target = 0; // 目標ポイント
+    int current = 0; // 現在のポイント
+
+    // 目標と現在のポイントを入力
+    target = input_point("target");
+    current = input_point("current", target);
+
+    std::vector<int> liveCount = calculate(target, current);
 
     // 出力
     std::cout << " live count is below." << std::endl;
