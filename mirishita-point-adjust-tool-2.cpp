@@ -51,20 +51,20 @@ int input_point(std::string targetOrCurrent, int upperLimit = pointLimit)
 // ライブ回数計算関数
 // 各ライブの必要回数が入ったvectorが返る
 // 目標ポイント数を取ることが不可能な場合、空のvectorを返す
-std::vector<int> calculate(int target, int current)
+std::vector<int> calculate(int targetPoint, int currentPoint)
 {
-    int remain = target - current; // 残りポイント
+    int remainPoint = targetPoint - currentPoint; // 残りポイント
 
-    std::vector<int> minLiveCount(remain + 1, inf); // minLiveCount[i] := iポイント取るために必要な最小ライブ回数
+    std::vector<int> minLiveCount(remainPoint + 1, inf); // minLiveCount[i] := iポイント取るために必要な最小ライブ回数
     minLiveCount[0] = 0;
-    std::vector<int> lastLiveIndex(remain + 1, -1); // lastLiveIndex[i] := 最小ライブ回数でiポイント取ったときの最後に行ったライブ
+    std::vector<int> lastLiveIndex(remainPoint + 1, -1); // lastLiveIndex[i] := 最小ライブ回数でiポイント取ったときの最後に行ったライブ
 
-    for (int i = 0; i <= remain; ++i) {
+    for (int i = 0; i <= remainPoint; ++i) {
         for (int j = 0; j < (int)allLives.size(); ++j) {
             Live l = allLives[j];
 
             // 必要以上に稼ぎそうになるケースを弾く
-            if (i + l.point > remain) {
+            if (i + l.point > remainPoint) {
                 continue;
             }
 
@@ -77,13 +77,13 @@ std::vector<int> calculate(int target, int current)
     }
 
     // 目標ポイントを取ることが不可能な場合
-    if (minLiveCount[remain] >= inf) {
+    if (minLiveCount[remainPoint] >= inf) {
         return {};
     }
 
     std::vector<int> liveCount((int)allLives.size(), 0); // 各ライブを行う回数
     // remain point から遡って行うライブを復元する
-    int point = remain;
+    int point = remainPoint;
     while (true) {
         if (point == 0) {
             break;
@@ -99,14 +99,14 @@ std::vector<int> calculate(int target, int current)
 
 int main()
 {
-    int target = 0; // 目標ポイント
-    int current = 0; // 現在のポイント
+    int targetPoint = 0; // 目標ポイント
+    int currentPoint = 0; // 現在のポイント
 
     // 目標と現在のポイントを入力
-    target = input_point("target");
-    current = input_point("current", target);
+    targetPoint = input_point("target");
+    currentPoint = input_point("current", targetPoint);
 
-    std::vector<int> liveCount = calculate(target, current);
+    std::vector<int> liveCount = calculate(targetPoint, currentPoint);
 
     // 出力
     if (!liveCount.empty()) {
@@ -115,7 +115,7 @@ int main()
             std::cout << " " + allLives[i].name + " : " + std::to_string(liveCount[i]) << std::endl;
         }
     } else {
-        std::cout << " you cannot get just " + std::to_string(target) + " points." << std::endl;
+        std::cout << " you cannot get just " + std::to_string(targetPoint) + " points." << std::endl;
     }
 
     return 0;
