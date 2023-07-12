@@ -153,14 +153,20 @@ int main()
     std::vector<int> liveCount = calculate(targetPoint, currentPoint, currentEventItem);
 
     // 出力
+    // 1回以上やるライブのみ出力
     if (!liveCount.empty()) {
         std::cout << " live count is below." << std::endl;
         for (int i = 0; i < (int)normalLives.size(); ++i) {
-            std::cout << " " + normalLives[i].name + " : " + std::to_string(liveCount[i]) << std::endl;
+            if (liveCount[i] > 0) {
+                std::cout << " " + normalLives[i].name + " : " + std::to_string(liveCount[i]) << std::endl;
+            }
         }
         int tmp = liveCount.back(); // イベントライブ回数
         for (int magnification : eventLiveMagnificationList) {
-            std::cout << " event " + std::to_string(magnification) + "x : " + std::to_string(tmp / magnification) << std::endl;
+            int count = tmp / magnification;
+            if (count > 0) {
+                std::cout << " event " + std::to_string(magnification) + "x : " + std::to_string(count) << std::endl;
+            }
             tmp %= magnification;
         }
     } else {
