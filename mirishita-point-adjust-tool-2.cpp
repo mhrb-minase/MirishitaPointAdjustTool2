@@ -49,6 +49,7 @@ int input_point(std::string targetOrCurrent, int upperLimit = pointLimit)
 }
 
 // ライブ回数計算関数
+// 各ライブの必要回数が入ったvectorが返る
 // 目標ポイント数を取ることが不可能な場合、空のvectorを返す
 std::vector<int> calculate(int target, int current)
 {
