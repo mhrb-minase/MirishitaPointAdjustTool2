@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+#include<string>
 
 constexpr int pointLimit = 10000000; // 扱えるポイント数の上限
 constexpr int inf = (1 << 30) - 1; // 最小化したい変数の初期値
