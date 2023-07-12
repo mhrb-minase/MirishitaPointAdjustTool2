@@ -3,6 +3,7 @@
 #include<string>
 
 constexpr int pointLimit = 10000000; // 扱えるポイント数の上限
+constexpr int eventItemLimit = 1000000000; // 扱えるイベントアイテム数の上限
 constexpr int inf = (1 << 30) - 1; // 最小化したい変数の初期値
 
 struct Live
@@ -33,11 +34,11 @@ const std::vector<Live> allLives = {
     {"event 1x", 537}
 };
 
-int input_point(std::string targetOrCurrent, int upperLimit = pointLimit)
+int input_integer(std::string name, int upperLimit)
 {
     int point = -1;
     while (true) {
-        std::cout << " input " + targetOrCurrent + " point> ";
+        std::cout << " input " + name + "> ";
         std::cin >> point;
         if(0 <= point && point <= upperLimit) {
             break;
@@ -103,8 +104,8 @@ int main()
     int currentPoint = 0; // 現在のポイント
 
     // 目標と現在のポイントを入力
-    targetPoint = input_point("target");
-    currentPoint = input_point("current", targetPoint);
+    targetPoint = input_integer("target point", pointLimit);
+    currentPoint = input_integer("current point", targetPoint);
 
     std::vector<int> liveCount = calculate(targetPoint, currentPoint);
 
