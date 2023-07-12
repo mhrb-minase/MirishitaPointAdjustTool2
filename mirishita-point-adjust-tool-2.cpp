@@ -41,7 +41,7 @@ int input_point(std::string targetOrCurrent, int upperLimit = pointLimit)
         if(0 <= point && point <= upperLimit) {
             break;
         } else {
-            std::cout << " input value between 0 and " + std::to_string(pointLimit) << std::endl;
+            std::cout << " input value between 0 and " + std::to_string(upperLimit) << std::endl;
         }
     }
     return point;
