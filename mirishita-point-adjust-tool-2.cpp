@@ -106,7 +106,7 @@ std::vector<int> calculate(int targetPoint, int currentPoint, int currentEventIt
             continue;
         }
 
-        if(minNormalLiveCount[i] + eventLiveCount < minLiveCount) {
+        if (minNormalLiveCount[i] + eventLiveCount < minLiveCount) {
             minLiveCount = minNormalLiveCount[i] + eventLiveCount;
             normalLivePoint = i;
         }
